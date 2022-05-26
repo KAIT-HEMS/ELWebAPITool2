@@ -1,0 +1,34 @@
+<template>
+  <nav class="navbar navbar-expand-lg navbar-secondary bg-secondary">
+    <div class="container-fluid">
+      <div>
+        <a class="navbar-brand" href="#" style="color: #ffffff"
+          >ECHONET Lite WebAPI Tool</a
+        >
+      </div>
+
+      <div class="d-flex">
+        <!-- ホームボタン -->
+        <router-link to="/">
+          <a class="btn" title="Back to the home">
+            <font-awesome-icon icon="home" style="color: #eeeeee" />
+          </a>
+        </router-link>
+
+        <!-- 設定ボタン -->
+        <router-link to="/setting">
+          <a class="btn" title="Setting">
+            <font-awesome-icon icon="cog" style="color: #eeeeee" />
+          </a>
+        </router-link>
+
+        <!-- About ボタン -->
+        <router-link to="/about">
+          <a class="btn" title="About">
+            <font-awesome-icon icon="question-circle" style="color: #eeeeee" />
+          </a>
+        </router-link>
+      </div>
+    </div>
+  </nav>
+</template>
