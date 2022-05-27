@@ -11,7 +11,10 @@
 
 <script lang="ts">
 import NavHeader from "@/components/NavHeader.vue";
-console.log("App.vue: init");
+import { config } from "./config";
+const version = config.version;
+const releaseData = config.releaseDate;
+console.log("App.vue: init", { version }, { releaseData });
 
 export default {
   components: {

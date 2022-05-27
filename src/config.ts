@@ -1,6 +1,6 @@
 export const config = {
-  version: "V 0.1.0",
-  releaseDate: "2022.05.26",
+  version: "V 2.0.0",
+  releaseDate: "2022.05.27",
   copyright: "Copyright 2022 Kanagawa Institute of Technology",
   serverUrl1: "https://webapiechonet.com/elapi/v1",
   serverUrl2: "https://www.smarthouse-center.org/elapi/v1",
