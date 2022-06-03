@@ -1,3 +1,7 @@
+// router/index.ts
+// Vue Router を利用して表示するページの定義
+// ページを追加・削除する場合はこのファイルを修正する
+
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 

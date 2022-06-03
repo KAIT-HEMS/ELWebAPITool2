@@ -1,3 +1,6 @@
+<!-- views/AboutView.vue -->
+<!-- About page を作成する -->
+
 <template>
   <div class="about">
     <div>

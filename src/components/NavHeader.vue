@@ -1,3 +1,8 @@
+<!-- components/NavHeader.vue -->
+<!-- 全てのページに共通な page navigation を作成する -->
+<!-- Home, Setting, About page へのナビゲーションを記述している -->
+<!-- Page を追加する場合は、このファイルを修正する -->
+
 <template>
   <nav class="navbar navbar-expand-lg navbar-secondary bg-secondary">
     <div class="container-fluid">

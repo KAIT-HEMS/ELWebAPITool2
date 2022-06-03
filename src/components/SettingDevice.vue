@@ -1,9 +1,11 @@
+<!-- components/SettingDevice.vue -->
+<!-- Setting page の Device 設定 component を作成する -->
+
 <template>
   <div class="settingDevice">
-    <!-- Devices on the server -->
+    <!-- 実験サーバーの場合のみ表示 -->
     <template v-if="serverSelection === 'server1'">
       <div class="card">
-        <!-- header-->
         <div class="card-header">
           <form>
             <div class="row">
@@ -137,36 +139,6 @@ export default defineComponent({
     },
   },
   methods: {
-    // Select a server のラジオボタンの処理
-    // rbServerOnChange: function (event: Event) {
-    //   if (event!.target instanceof HTMLInputElement) {
-    //     const serverSelection = event!.target.value;
-    //     console.log("rbServerOnChange", serverSelection);
-    //     localStorage.setItem("serverSelection", serverSelection);
-    //     this.serverSelection = serverSelection;
-    //     this.serverUrl =
-    //       serverSelection == "server1" ? config.serverUrl1 : config.serverUrl2;
-    //     this.apiKey =
-    //       serverSelection == "server1" ? this.apiKey1 : this.apiKey2;
-    //     if (serverSelection == "server1") {
-    //       this.updateButtonIsClicked();
-    //     }
-    //   }
-    // },
-
-    // API key for 実験サーバー の入力時の処理
-    // apiKeyOnChange1: function () {
-    //   console.log("apiKeyOnChange1:", this.apiKey1);
-    //   localStorage.setItem("apiKey1", this.apiKey1);
-    //   this.updateButtonIsClicked();
-    // },
-
-    // API key for 実証システム の入力時の処理
-    // apiKeyOnChange2: function () {
-    //   console.log("apiKeyOnChange2:", this.apiKey2);
-    //   localStorage.setItem("apiKey2", this.apiKey2);
-    // },
-
     // デバイス削除ボタン(Trash can)がクリックされたときの処理
     deleteDeviceButtonIsClicked: function (value: number) {
       const deviceId = this.idInfoList[value].id;
@@ -271,14 +243,6 @@ export default defineComponent({
   },
   created: function () {
     console.log("Setting page: Device is created");
-    // console.log(
-    //   "serverSelection:",
-    //   this.serverSelection,
-    //   "apiKey1:",
-    //   this.apiKey1,
-    //   "apiKey2:",
-    //   this.apiKey2
-    // );
     if (this.serverSelection == "server1") {
       this.updateButtonIsClicked();
     }
@@ -286,18 +250,7 @@ export default defineComponent({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* .input-group {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-}
-.form-check {
-  padding-top: 0.5rem;
-  padding-left: 2rem;
-} */
 #setting-devices-body {
   margin: 0;
   padding: 0;

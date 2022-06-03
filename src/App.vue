@@ -1,3 +1,9 @@
+<!-- App.vue -->
+<!-- このアプリの Top View -->
+<!-- NavHeader component を表示したのち、 -->
+<!-- router-view で routing された page を表示する -->
+<!-- config.json ファイルに記述された version と release date をブラウザーのコンソールに出力する -->
+
 <template>
   <div class="container">
     <header>
@@ -10,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import NavHeader from "@/components/NavHeader.vue";
+import NavHeader from "./components/NavHeader.vue";
 import { config } from "./config";
 const version = config.version;
 const releaseData = config.releaseDate;

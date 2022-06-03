@@ -1,3 +1,7 @@
+<!-- views/SettingView.vue -->
+<!-- Setting page を作成する -->
+<!-- SettingServer, SettingDevice component を利用する -->
+
 <template>
   <div class="setting">
     <div>
@@ -9,8 +13,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import SettingServer from "@/components/SettingServer.vue"; // @ is an alias to /src
-import SettingDevice from "@/components/SettingDevice.vue"; // @ is an alias to /src
+import SettingServer from "../components/SettingServer.vue"; // @ is an alias to /src
+import SettingDevice from "../components/SettingDevice.vue"; // @ is an alias to /src
 console.log("SettingView init");
 
 export default defineComponent({
@@ -22,7 +26,6 @@ export default defineComponent({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .input-group {
   margin-top: 0.25rem;
