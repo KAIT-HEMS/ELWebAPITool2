@@ -132,14 +132,18 @@ export default defineComponent({
 
     // API key for 実験サーバー の入力時の処理
     apiKeyOnChange1: function () {
-      console.log("apiKeyOnChange1:", this.apiKey1);
       localStorage.setItem("apiKey1", this.apiKey1);
+      this.apiKey =
+        this.serverSelection == "server1" ? this.apiKey1 : this.apiKey2;
+      console.log("apiKeyOnChange1:", this.apiKey1);
     },
 
     // API key for 実証システム の入力時の処理
     apiKeyOnChange2: function () {
-      console.log("apiKeyOnChange2:", this.apiKey2);
       localStorage.setItem("apiKey2", this.apiKey2);
+      this.apiKey =
+        this.serverSelection == "server1" ? this.apiKey1 : this.apiKey2;
+      console.log("apiKeyOnChange2:", this.apiKey2);
     },
   },
   created: function () {

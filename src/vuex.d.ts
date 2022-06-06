@@ -12,6 +12,10 @@ type Log = {
   data: string;
   body: string;
 };
+type NotificationData = {
+  path: string;
+  body: string;
+};
 
 declare module "@vue/runtime-core" {
   // ストアのステートを宣言する
@@ -24,6 +28,8 @@ declare module "@vue/runtime-core" {
     response: string,
     logId: number,
     logArray: Log[],
+    notificationData: NotificationData,
+    webSocketIsConnected: boolean,
   }
 
   // `this.$store` の型付けを提供する

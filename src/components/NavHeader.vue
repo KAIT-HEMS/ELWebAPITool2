@@ -15,7 +15,7 @@
       <div class="d-flex">
         <!-- ホームボタン -->
         <router-link to="/">
-          <a class="btn" title="Back to the home">
+          <a class="btn" title="Home">
             <font-awesome-icon icon="home" style="color: #eeeeee" />
           </a>
         </router-link>

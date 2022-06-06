@@ -1,6 +1,7 @@
 <!-- components/HomeSendRequest.vue -->
 <!-- Home page の Send Request component を作成する -->
 <!-- Send ボタンの処理では、送信だけでなく受信処理も含む -->
+<!-- Web socket の処理も含む -->
 
 <template>
   <div class="homeSendRequest">
@@ -8,11 +9,32 @@
       <div class="card-header">
         <div class="row">
           <div class="col-auto h5 mt-2">Send Request</div>
-          <div class="col"></div>
-          <div class="col-auto mt-2">{{ serverUrl }}{{ url }}</div>
           <div class="col-auto"></div>
+          <!-- Display server URL -->
+          <div class="col-auto mt-2">{{ serverUrl }}{{ url }}</div>
+          <!-- Connect web socket ボタン -->
+          <template v-if="serverSelection === 'server2'">
+            <div class="col-auto mt-1 pl-0">
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm fw-bold mr-1"
+                title="Connect web socket"
+                v-on:click="connectButtonIsClicked"
+              >
+                Connect web socket
+              </button>
+              <a class="btn" title="Web Socket Is Connected">
+                <font-awesome-icon
+                  v-if="webSocketIsConnected"
+                  icon="link"
+                  style="color: #000000"
+                />
+              </a>
+            </div>
+          </template>
+          <div class="col"></div>
+          <!-- SENDボタン -->
           <div class="col-auto mt-1 pl-0">
-            <!-- SENDボタン -->
             <button
               type="button"
               class="btn btn-secondary btn-sm fw-bold"
@@ -172,7 +194,8 @@
 import { defineComponent } from "vue";
 import { config } from "../config";
 console.log("HomeSendRequest init");
-
+const fileName4Log = config.fileName4Log; // log download のファイル名
+let g_statusCode = ""; // fetch API の statusCode を保持するため
 type IdInfo = {
   deviceType: string;
   id: string;
@@ -199,9 +222,10 @@ type Option = {
   headers: Headers;
   body?: string;
 };
-
-let g_statusCode = ""; // fetch API の statusCode を保持するため
-const fileName4Log = config.fileName4Log; // log download のファイル名
+type NotificationData = {
+  path: string;
+  body: string;
+};
 
 export default defineComponent({
   name: "HomeSendRequest",
@@ -288,6 +312,22 @@ export default defineComponent({
         this.$store.dispatch("setLogArray", value);
       },
     },
+    notificationData: {
+      get() {
+        return this.$store.getters.notificationData;
+      },
+      set(value) {
+        this.$store.dispatch("setNotificationData", value);
+      },
+    },
+    webSocketIsConnected: {
+      get() {
+        return this.$store.getters.webSocketIsConnected;
+      },
+      set(value) {
+        this.$store.dispatch("setWebSocketIsConnected", value);
+      },
+    },
   },
   methods: {
     // SENDボタンがクリックされたときの処理
@@ -311,13 +351,6 @@ export default defineComponent({
       }
       const url = this.serverUrl + path;
       console.log("sendButtonIsClicked", { url });
-
-      // type Option = {
-      //   method: string;
-      //   headers: Headers;
-      //   body?: string;
-      // };
-
       const headers = new Headers({
         "Content-Type": "application/json",
       });
@@ -337,13 +370,11 @@ export default defineComponent({
       // Request & Response の 表示内容設定
       this.request =
         "REQ: " + this.methodSelected + " " + url + "\n" + this.body;
-
-      // REQUESTをLOGに追加
+      // Request を LOGに追加
       let log: Log = {
         id: String(this.logId++),
         timeStamp: timeStamp(),
         direction: "REQ",
-        // statusCode: g_statusCode,
         statusCode: "",
         data: this.methodSelected + " " + url,
         body: this.body,
@@ -353,7 +384,7 @@ export default defineComponent({
       // ECHONET Lite WebAPI Server へのアクセス
       fetch(url, option)
         .then((response) => {
-          // Request & Response の response 内容設定
+          // Response 内容設定
           const statusCode = response.status + " " + response.statusText;
           this.statusCode = "RES: " + statusCode;
           g_statusCode = statusCode;
@@ -361,9 +392,8 @@ export default defineComponent({
         })
         .then((data) => {
           console.log("Success:", data);
-          // Request & Response の data 内容設定
+          // Response の data 内容設定
           this.response = data;
-
           // RESPONSE を LOG に追加
           let log: Log = {
             id: String(this.logId++),
@@ -375,8 +405,7 @@ export default defineComponent({
           };
           this.logArray.push(log);
 
-          // ECHONET Lite WebApi Serverからのresponse処理
-          // console.log("this.methodSelected", this.methodSelected);
+          // ECHONET Lite WebApi Serverからの response 処理
           if (this.methodSelected == "GET") {
             // GET /elapi/v1
             // serviceListを新規に作成する
@@ -471,11 +500,8 @@ export default defineComponent({
             if (regex.test(url)) {
               service = "histories";
             }
+            console.log("GET /elapi/v1/devices/<id> service:", service);
 
-            console.log("526 GET /elapi/v1/devices/<id> service:", service);
-
-            // regex = /\/devices\/([0-9]|[a-z]|[A-Z]|-)+$/; // 正規表現'/devices/'の後、行末まで英数字
-            // if (regex.test(url)) {
             if (service !== "") {
               const pathElements = url.split("/"); // pathを'/'で分割して要素を配列にする
               const thingId = pathElements[pathElements.length - 1]; // 配列の最後の要素が deviceId
@@ -555,6 +581,34 @@ export default defineComponent({
         .catch((error) => {
           console.error("Error:", error);
         });
+    },
+
+    // Connect ボタンがクリックされたときの処理: web socket の処理
+    connectButtonIsClicked: function () {
+      console.log("Connect Web Socket button is clicked");
+      const url = "wss://www.smarthouse-center.org/ws/elapi";
+      const ws = new WebSocket(url, ["echonetlite-protocol", this.apiKey]);
+
+      ws.addEventListener("open", () => {
+        console.log("WebSocket が接続されました。");
+        this.webSocketIsConnected = true;
+      });
+      ws.addEventListener("close", () => {
+        console.log("WebSocket が切断されました。");
+        this.webSocketIsConnected = false;
+        setTimeout(() => {
+          this.connectButtonIsClicked();
+        }, 1000);
+      });
+      ws.addEventListener("error", () => {
+        console.log("WebSocket 接続に失敗しました。");
+      });
+      ws.addEventListener("message", (event) => {
+        console.log("Web socket メッセージを受信しました。");
+        const notificationData: NotificationData = JSON.parse(event.data);
+        this.notificationData = notificationData;
+        console.log("Web socket", { notificationData });
+      });
     },
 
     // Copy from responseボタンがクリックされたときの処理
@@ -741,7 +795,7 @@ function timeStamp(): string {
 </script>
 
 <style scoped>
-.form-check {
+/* .form-check {
   padding-top: 0.5rem;
   padding-left: 2rem;
 }
@@ -780,5 +834,5 @@ function timeStamp(): string {
 }
 #message-list li span.col2 {
   width: 3em;
-}
+} */
 </style>

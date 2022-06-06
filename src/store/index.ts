@@ -21,23 +21,14 @@ type Log = {
   body: string;
 };
 const logArray: Log[] = []; // logを格納するarray
-type Message = {
-  id: string;
-  timeStamp: string;
-  direction: string;
-  statusCode: string;
-  data: string;
+type NotificationData = {
+  path: string;
   body: string;
 };
-const message_list: Message[] = [];
-type DataLog = {
-  timeStamp: string;
-  direction: string;
-  statusCode: string;
-  data: string;
-  body: string;
+const notificationData: NotificationData = {
+  path: "",
+  body: "Body: ",
 };
-const g_dataLogArray: DataLog[] = []; // logを格納するarray
 
 export default createStore({
   state: {
@@ -47,10 +38,10 @@ export default createStore({
     request: "Request:",
     statusCode: "Response: status code",
     response: "Response: data",
-    message_list: message_list,
-    g_dataLogArray: g_dataLogArray,
     logId: 0,
     logArray: logArray,
+    notificationData: notificationData,
+    webSocketIsConnected: false,
   },
   getters: {
     serverSelection: (state) => state.serverSelection,
@@ -59,10 +50,10 @@ export default createStore({
     request: (state) => state.request,
     statusCode: (state) => state.statusCode,
     response: (state) => state.response,
-    // message_list: (state) => state.message_list,
-    // g_dataLogArray: (state) => state.g_dataLogArray,
     logId: (state) => state.logId,
     logArray: (state) => state.logArray,
+    notificationData: (state) => state.notificationData,
+    webSocketIsConnected: (state) => state.webSocketIsConnected,
   },
   mutations: {
     setServerSelection: function (state, value) {
@@ -83,17 +74,17 @@ export default createStore({
     setResponse: function (state, value) {
       state.response = value;
     },
-    // setMessage_list: function (state, value) {
-    //   state.message_list = value;
-    // },
-    // setG_dataLogArray: function (state, value) {
-    //   state.g_dataLogArray = value;
-    // },
     setLogId: function (state, value) {
       state.logId = value;
     },
     setLogArray: function (state, value) {
       state.logArray = value;
+    },
+    setNotificationData: function (state, value) {
+      state.notificationData = value;
+    },
+    setWebSocketIsConnected: function (state, value) {
+      state.webSocketIsConnected = value;
     },
   },
   actions: {
@@ -115,17 +106,17 @@ export default createStore({
     setResponse: function ({ commit }, value) {
       commit("setResponse", value);
     },
-    // setMessage_list: function ({ commit }, value) {
-    //   commit("setMessage_list", value);
-    // },
-    // setG_dataLogArray: function ({ commit }, value) {
-    //   commit("setG_dataLogArray", value);
-    // },
     setLogId: function ({ commit }, value) {
       commit("setLogId", value);
     },
     setLogArray: function ({ commit }, value) {
       commit("setLogArray", value);
+    },
+    setNotificationData: function ({ commit }, value) {
+      commit("setNotificationData", value);
+    },
+    setWebSocketIsConnected: function ({ commit }, value) {
+      commit("setWebSocketIsConnected", value);
     },
   },
   modules: {},

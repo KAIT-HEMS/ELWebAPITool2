@@ -7,6 +7,7 @@
     <div>
       <HomeSendRequest />
       <HomeRequestResponse />
+      <HomeNotification />
       <HomeLog />
     </div>
   </div>
@@ -16,6 +17,7 @@
 import { defineComponent } from "vue";
 import HomeSendRequest from "../components/HomeSendRequest.vue"; // @ is an alias to /src
 import HomeRequestResponse from "../components/HomeRequestResponse.vue"; // @ is an alias to /src
+import HomeNotification from "../components/HomeNotification.vue"; // @ is an alias to /src
 import HomeLog from "../components/HomeLog.vue"; // @ is an alias to /src
 console.log("HomeView init");
 
@@ -24,6 +26,7 @@ export default defineComponent({
   components: {
     HomeSendRequest,
     HomeRequestResponse,
+    HomeNotification,
     HomeLog,
   },
 });
