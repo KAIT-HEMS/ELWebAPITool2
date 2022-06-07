@@ -4,18 +4,18 @@
 import { ComponentCustomProperties } from "vue";
 import { Store } from "vuex";
 
-type Log = {
-  id: string;
-  timeStamp: string;
-  direction: string;
-  statusCode: string;
-  data: string;
-  body: string;
-};
-type NotificationData = {
-  path: string;
-  body: string;
-};
+// type Log = {
+//   id: string;
+//   timeStamp: string;
+//   direction: string;
+//   statusCode: string;
+//   data: string;
+//   body: string;
+// };
+// type NotificationData = {
+//   path: string;
+//   body: string;
+// };
 
 declare module "@vue/runtime-core" {
   // ストアのステートを宣言する

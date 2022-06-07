@@ -3,28 +3,31 @@
 
 import { createStore } from "vuex";
 import { config } from "../config";
+import { Log, NotificationData } from "../global.d";
 
-let serverSelection = localStorage.getItem("serverSelection") ?? "server1";
-serverSelection = serverSelection == "server1" ? "server1" : "server2";
+const storedServerSelection =
+  localStorage.getItem("serverSelection") ?? "server1";
+const serverSelection =
+  storedServerSelection == "server1" ? "server1" : "server2";
 const serverUrl =
   serverSelection == "server1" ? config.serverUrl1 : config.serverUrl2;
 const apiKey1 = localStorage.getItem("apiKey1") ?? "";
 const apiKey2 = localStorage.getItem("apiKey2") ?? "";
 const apiKey = serverSelection == "server1" ? apiKey1 : apiKey2;
 console.log("store init:", { serverSelection }, { serverUrl }, { apiKey });
-type Log = {
-  id: string;
-  timeStamp: string;
-  direction: string;
-  statusCode: string;
-  data: string;
-  body: string;
-};
+// type Log = {
+//   id: string;
+//   timeStamp: string;
+//   direction: string;
+//   statusCode: string;
+//   data: string;
+//   body: string;
+// };
 const logArray: Log[] = []; // logを格納するarray
-type NotificationData = {
-  path: string;
-  body: string;
-};
+// type NotificationData = {
+//   path: string;
+//   body: string;
+// };
 const notificationData: NotificationData = {
   path: "",
   body: "Body: ",
@@ -32,7 +35,7 @@ const notificationData: NotificationData = {
 
 export default createStore({
   state: {
-    serverSelection: serverSelection, // 1:実験サーバー, 2:実証システム
+    serverSelection: serverSelection, // "server1":実験サーバー, "server2":実証システム
     serverUrl: serverUrl,
     apiKey: apiKey,
     request: "Request:",

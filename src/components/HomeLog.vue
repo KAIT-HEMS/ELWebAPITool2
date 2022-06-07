@@ -104,6 +104,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { config } from "../config";
+
 console.log("HomeLog init");
 const fileName4Log = config.fileName4Log; // log download のファイル名
 

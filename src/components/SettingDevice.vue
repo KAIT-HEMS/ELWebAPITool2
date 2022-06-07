@@ -92,12 +92,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { config } from "../config";
-console.log("SettingDevice init");
+import { IdInfo } from "../global.d";
 
-type IdInfo = {
-  deviceType: string;
-  id: string;
-};
+console.log("SettingDevice init");
 const idInfoList: IdInfo[] = []; // プロパティの初期化用データ
 
 export default defineComponent({
@@ -109,7 +106,6 @@ export default defineComponent({
       addDevice: config.addDeviceList[3], // デバイス追加で選択されたデバイス名。初期値はエアコン
       addDeviceList: config.addDeviceList,
       idInfoList: idInfoList, // [{deviceType:"/aircon", id:"0123"},... ] GET /devices, groups, bulk, histories のレスポンスを利用
-      // response: "Response: data",
     };
   },
   computed: {

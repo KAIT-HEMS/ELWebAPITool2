@@ -193,13 +193,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { config } from "../config";
+import { Log, NotificationData, IdInfo } from "../global.d";
+
 console.log("HomeSendRequest init");
 const fileName4Log = config.fileName4Log; // log download のファイル名
 let g_statusCode = ""; // fetch API の statusCode を保持するため
-type IdInfo = {
-  deviceType: string;
-  id: string;
-};
 const idInfoList: IdInfo[] = []; // プロパティの初期化用データ
 const resourceTypeList: string[] = []; // プロパティの初期化用データ
 type ThingInfo = {
@@ -209,22 +207,10 @@ type ThingInfo = {
   actionList: string[];
 };
 let g_thingInfo: { [key: string]: ThingInfo } = {};
-type Log = {
-  id: string;
-  timeStamp: string;
-  direction: string;
-  statusCode: string;
-  data: string;
-  body: string;
-};
 type Option = {
   method: string;
   headers: Headers;
   body?: string;
-};
-type NotificationData = {
-  path: string;
-  body: string;
 };
 
 export default defineComponent({

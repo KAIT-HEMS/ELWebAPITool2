@@ -74,12 +74,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { config } from "../config";
-console.log("SettingServer init");
 
-type IdInfo = {
-  deviceType: string;
-  id: string;
-};
+console.log("SettingServer init");
 
 export default defineComponent({
   name: "SettingServer",

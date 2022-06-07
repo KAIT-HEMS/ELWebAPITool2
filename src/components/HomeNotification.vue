@@ -40,11 +40,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { NotificationData } from "../global.d";
+
 console.log("HomeNotification init");
-type NotificationData = {
-  path: string;
-  body: string;
-};
 
 export default defineComponent({
   name: "HomeNotification",
