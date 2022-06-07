@@ -1,63 +1,62 @@
-# EL_WebAPI_Tool2 ユーザーマニュアル
+# Readme ECHONET Lite WebAPI Tool
 
-## Abstract
+## 1. Abstract
 
-EL_WebAPI_Tool2 は、ECHONET Lite WebAPI で定義された API を利用して Server にアクセスすることができるクライアント側のアプリケーションプログラムです。
+ECHONET Lite WebAPI Tool (elwebapitool2) は、エコーネットコンソーシアムが策定した [ECHONET Lite WebAPI](https://echonet.jp/web_api/#guideline) を利用してサーバーにアクセスするクライアント側のアプリケーションプログラムです。Windows または MacOS 上で動作します。
 
-エコーネットコンソーシアムが管理している ECHONET Lite WebAPI 実験クラウド(\*1) と、神奈川工科大学スマートハウス研究センターが管理している ECHONET Lite WebAPI 実証システム(\*2) にアクセスすることを想定している。
+エコーネットコンソーシアムが運用している ECHONET Lite WebAPI 実験サーバーと、神奈川工科大学スマートハウス研究センターが運用している ECHONET Lite WebAPI 実証システムにアクセスすることを想定しています。
 
-(\*1) ECHONET Lite WebAPI 実験クラウドは、ECHONET Lite WebAPI のリファレンスサーバーである。ECHONET Lite WebAPI で定義された全ての API を実装している。デバイスはサーバー内で静的にエミュレーションしている。EL_WebAPI_Tool2 は、実験クラウドのデバイス設定機能も備えている。
+ECHONET Lite WebAPI 実験サーバー（以下、実験サーバーと省略します）は、ECHONET Lite WebAPI のリファレンスサーバーです。ECHONET Lite WebAPI で定義された全ての API を実装しています。制御対象デバイスはサーバー内で静的にエミュレーションしています。EL_WebAPI_Tool2 は、実験サーバーのデバイス設定機能も備えています。
 
-(\*2) ECHONET Lite WebAPI 実証システムは、ECHONET Lite WebAPI を利用して ECHONET Lite の実機を制御することを目的としたシステムである。ECHONET Lite の実機が接続された LAN 内に、実証システム対応の Gateway 装置(*3) を設置することで、ECHONET Lite WebAPI を利用して インターネット経由でECHONET Lite の実機を制御できる。
+実験サーバーは、エコーネットコンソーシアムの会員企業の方が利用できます。[エコーネットコンソーシアムの会員限定ページ](https://echonet.jp/m_only/web_api_cloud/) から実験サーバーのアカウントを作成し、あらかじめAPI キーを取得してください。
 
+ECHONET Lite WebAPI 実証システム（以下、実証システムと省略します）は、ECHONET Lite WebAPI を利用して ECHONET Lite の実機を制御することを目的としたシステムです。ECHONET Lite の実機が接続された LAN 内に、実証システム対応の Gateway 装置を設置することで、ECHONET Lite WebAPI を利用して インターネット経由でECHONET Lite の実機を制御することができます。
 
+実証システムは、神奈川工科大学スマートハウス研究センターとの共同研究で利用することができます。実証システムに関しては[神奈川工科大学スマートハウス研究センター](http://sh-center.org/contactus.html)に問い合わせください。
 
+## 2. Installation & Setup
 
+EL_WebAPI_Tool2 は、Node.js というプログラムと、Web ブラウザーを利用して動作します。
 
+### 2.1 Node.js のインストール
 
-実験クラウドにアクセスし、ECHONET Lite WebAPI をあれこれ試すことができるツールである。
-EL_WebAPI_Tool2(EWT2) は、EL_WebAPI_Tool を refactoring し、機能追加を行う。
+- [Node.js のホームページ](https://nodejs.org/ja) にアクセスし、推奨版をダウンロードします。
+- ダウンロードしたインストーラを使って Node.js をインストールします。Node.js のインストール中に、npm と呼ぶツールも自動でイントールされます。
 
-- Refactoring
-  - バックエンド
-    - プログラム開発は不要
-    - serve module を使って、static な folder /dist を公開する
-  - フロントエンド
-    - 開発環境として Vue CLI, TypeScript を採用
-    - サーバーへのアクセスは従来バックエンドでおこなっていた。今回はフロントエンドで行う。
-      - fetch を利用する
-    - データ保存のために localStorage を使う
-    - ログダウンロードは標準機能を使う
-- 機能追加
-  - EL WebAPI 実証システムに対応する
-    - アクセス先のサーバーを切り替えられる様にする
-    - サーバーからの通知 (websocket) に対応する
+### 2.2 EL_WebAPI_Tool2 のインストール
 
+- EL_WebAPI_Tool2 の zip file をエコーネットコンソーシアムのホームページからダウンロードします。
+- zip file を適当なフォルダに移動して、解凍します。
+- コマンドプロンプト(PC) またはターミナル(Mac) を起動します。
+- このコマンドプロンプトまたはターミナルで CD コマンドを使い、zip fileを解凍したフォルダに移動します。
+- 次のコマンドを実行して、必要なモジュールをインストールします。
 
-## Project setup
-```
-npm install
+```shell
+npm ci
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- 次のコマンドを実行して、プログラムをビルドします。しばらくすると、"Build complete. The dist directory is ready to be deployed." というメッセージが表示されます。これで準備は終了です。
 
-### Compiles and minifies for production
-```
+```shell
 npm run build
 ```
 
-### Run your unit tests
-```
-npm run test:unit
+### 2.3 EL_WebAPI_Tool2 の実行
+
+- 次のコマンドを実行して、本アプリを起動します。
+
+```shell
+npm start
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Web Browser（Chrome推奨）を起動し、http://localhost:3010 をアクセスします。
+- Home 画面が表示されます。
+- 画面右上の Setting アイコンをクリックして Setting 画面に移動します。
+- 実験サーバーにアクセスする場合は、
+  - "API key for 実験サーバー" のテキストフィールドに API key を入力します。
+  - 画面右上の Home アイコンをクリックして Home 画面に戻ります。
+- 実証システムにアクセスする場合は、
+  - "Select a server" で "実証システム" を選択します。
+  - "API key for 実証システム" のテキストフィールドに API key を入力します。
+  - 画面右上の Home アイコンをクリックして Home 画面に戻ります。
+  
