@@ -1,12 +1,12 @@
-# Readme ECHONET Lite WebAPI Tool
+# Readme ELWebAPITool
 
 ## 1. Abstract
 
-ECHONET Lite WebAPI Tool (elwebapitool2) は、エコーネットコンソーシアムが策定した [ECHONET Lite WebAPI](https://echonet.jp/web_api/#guideline) を利用してサーバーにアクセスするクライアント側のアプリケーションプログラムです。Windows または MacOS 上で動作します。
+ELWebAPITool は、エコーネットコンソーシアムが策定した [ECHONET Lite WebAPI](https://echonet.jp/web_api/#guideline) を利用してサーバーにアクセスするクライアント側のアプリケーションプログラムです。Windows または MacOS 上で動作します。
 
 エコーネットコンソーシアムが運用している ECHONET Lite WebAPI 実験サーバーと、神奈川工科大学スマートハウス研究センターが運用している ECHONET Lite WebAPI 実証システムにアクセスすることを想定しています。
 
-ECHONET Lite WebAPI 実験サーバー（以下、実験サーバーと省略します）は、ECHONET Lite WebAPI のリファレンスサーバーです。ECHONET Lite WebAPI で定義された全ての API を実装しています。制御対象デバイスはサーバー内で静的にエミュレーションしています。EL_WebAPI_Tool2 は、実験サーバーのデバイス設定機能も備えています。
+ECHONET Lite WebAPI 実験サーバー（以下、実験サーバーと省略します）は、ECHONET Lite WebAPI のリファレンスサーバーです。ECHONET Lite WebAPI で定義された全ての API を実装しています。制御対象デバイスはサーバー内で静的にエミュレーションしています。ELWebAPITool は、実験サーバーのデバイス設定機能も備えています。
 
 実験サーバーは、エコーネットコンソーシアムの会員企業の方が利用できます。[エコーネットコンソーシアムの会員限定ページ](https://echonet.jp/m_only/web_api_cloud/) から実験サーバーのアカウントを作成し、あらかじめAPI キーを取得してください。
 
@@ -16,16 +16,16 @@ ECHONET Lite WebAPI 実証システム（以下、実証システムと省略し
 
 ## 2. Installation & Setup
 
-EL_WebAPI_Tool2 は、Node.js というプログラムと、Web ブラウザーを利用して動作します。
+ELWebAPITool は、Node.js というプログラムと、Web ブラウザーを利用して動作します。
 
 ### 2.1 Node.js のインストール
 
 - [Node.js のホームページ](https://nodejs.org/ja) にアクセスし、推奨版をダウンロードします。
 - ダウンロードしたインストーラを使って Node.js をインストールします。Node.js のインストール中に、npm と呼ぶツールも自動でイントールされます。
 
-### 2.2 EL_WebAPI_Tool2 のインストール
+### 2.2 ELWebAPITool のインストール
 
-- EL_WebAPI_Tool2 の zip file をエコーネットコンソーシアムのホームページからダウンロードします。
+- ELWebAPITool の zip file をエコーネットコンソーシアムのホームページからダウンロードします。
 - zip file を適当なフォルダに移動して、解凍します。
 - コマンドプロンプト(PC) またはターミナル(Mac) を起動します。
 - このコマンドプロンプトまたはターミナルで CD コマンドを使い、zip fileを解凍したフォルダに移動します。
@@ -41,7 +41,7 @@ npm ci
 npm run build
 ```
 
-### 2.3 EL_WebAPI_Tool2 の実行
+### 2.3 ELWebAPITool の実行
 
 - 次のコマンドを実行して、本アプリを起動します。
 
@@ -59,4 +59,5 @@ npm start
   - "Select a server" で "実証システム" を選択します。
   - "API key for 実証システム" のテキストフィールドに API key を入力します。
   - 画面右上の Home アイコンをクリックして Home 画面に戻ります。
-  
+  - Home 画面の "Connect web socket" をクリックします。
+  - 以降の操作は、実験サーバーのアクセスと同じです。
