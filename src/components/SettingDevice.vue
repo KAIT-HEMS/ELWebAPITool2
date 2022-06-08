@@ -77,7 +77,6 @@
                     v-on:click="deleteDeviceButtonIsClicked(index)"
                   >
                     <font-awesome-icon icon="trash" style="color: #eeeeee" />
-                    <!-- <i class="far fa-trash-alt"></i> -->
                   </button>
                 </span>
               </li>

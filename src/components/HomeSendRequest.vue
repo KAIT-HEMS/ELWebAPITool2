@@ -12,7 +12,7 @@
           <div class="col-auto"></div>
           <!-- Display server URL -->
           <div class="col-auto mt-2">{{ serverUrl }}{{ url }}</div>
-          <!-- Connect web socket ボタン -->
+          <!-- Connect web socket ボタン for 実証システム-->
           <template v-if="serverSelection === 'server2'">
             <div class="col-auto mt-1 pl-0">
               <button
@@ -336,7 +336,7 @@ export default defineComponent({
         }
       }
       const url = this.serverUrl + path;
-      console.log("sendButtonIsClicked", { url });
+      console.log("method: sendButtonIsClicked", { url });
       const headers = new Headers({
         "Content-Type": "application/json",
       });
@@ -377,7 +377,7 @@ export default defineComponent({
           return response.json();
         })
         .then((data) => {
-          console.log("Success:", data);
+          console.log("Success:", { data });
           // Response の data 内容設定
           this.response = data;
           // RESPONSE を LOG に追加
@@ -393,15 +393,13 @@ export default defineComponent({
 
           // ECHONET Lite WebApi Serverからの response 処理
           if (this.methodSelected == "GET") {
-            // GET /elapi/v1
+            // GET /elapi/v1 の場合
             // serviceListを新規に作成する
             let regex = /\/v1$/; // 正規表現：行末が'/v1'
             if (regex.test(url)) {
               let serviceList = [""];
-              console.log("data.v1", data.v1);
               if (data.v1 !== undefined) {
                 for (let service of data.v1) {
-                  console.log("service", service);
                   serviceList.push("/" + service.name);
                 }
               }
@@ -411,7 +409,7 @@ export default defineComponent({
               this.serviceSelected = serviceList[1] ? serviceList[1] : "";
             }
 
-            // GET /elapi/v1/devices, groups, bulks, histories
+            // GET /elapi/v1/devices, groups, bulks, histories の場合
             // idInfoListを新規に作成する
             let service = "";
             regex = /\/devices$/; // 正規表現：行末が'/devices'
@@ -461,12 +459,12 @@ export default defineComponent({
               // 入力フィールドidの表示項目の更新
               this.idSelected = this.idInfoList[1] ? this.idInfoList[1].id : "";
               // Device Typeの表示項目の更新
-              console.log("535 call updateDeviceType");
               this.deviceType = updateDeviceType(this.idSelected.slice(1));
+              console.log("call updateDeviceType()", this.idSelected.slice(1));
             }
 
-            // GET /elapi/v1/devices, groups, bulks, histories/<id>
-            // responseはdevice,group,bulk,history description -> g_thingInfoに情報を追加
+            // GET /elapi/v1/devices, groups, bulks, histories/<id> の場合
+            // responseはthing (device/group/bulk/history) description -> g_thingInfoに情報を追加
             // this.resourceTypeListにresource typeをpushする
             // this.resourceNameListにresource nameをpushする
             service = "";
@@ -486,13 +484,13 @@ export default defineComponent({
             if (regex.test(url)) {
               service = "histories";
             }
-            console.log("GET /elapi/v1/devices/<id> service:", service);
+            console.log("GET /elapi/v1/<service>/<id>", { service });
 
             if (service !== "") {
               const pathElements = url.split("/"); // pathを'/'で分割して要素を配列にする
-              const thingId = pathElements[pathElements.length - 1]; // 配列の最後の要素が deviceId
+              const thingId = pathElements[pathElements.length - 1]; // 配列の最後の要素が <id>
 
-              // Device Desvriptionをもとにg_thingInfoを更新する
+              // Thing Desvription をもとに g_thingInfo を更新する
               const thingDescription = data;
               const deviceType =
                 thingDescription.deviceType !== undefined
@@ -531,11 +529,8 @@ export default defineComponent({
               thingInfo.propertyList.sort();
               thingInfo.propertyListWritable.sort();
               thingInfo.actionList.sort();
-              console.log("533 thingId", thingId);
-              console.log("534 thingInfo", thingInfo);
-              console.log("535 g_thingInfo", g_thingInfo);
               g_thingInfo[thingId] = thingInfo;
-              console.log("g_thingInfo", g_thingInfo);
+              console.log({ thingId }, { thingInfo }, { g_thingInfo });
 
               // resourceTypeListを新規に作成する
               let resourceTypeList = [""];
@@ -548,8 +543,8 @@ export default defineComponent({
               if (data.events !== undefined) {
                 resourceTypeList.push("/events");
               }
-              console.log("resourceTypeListの更新:", resourceTypeList);
               this.resourceTypeList = resourceTypeList;
+              console.log("resourceTypeListの更新:", { resourceTypeList });
 
               // 入力フィールドResouce TypeとResource Nameの表示項目の更新
               const urn = updateResourceName("GET", thingId, "/properties");
@@ -659,14 +654,13 @@ export default defineComponent({
     // this.deviceTypeをthis.idInfoListを利用してupdateする
     // 選択されたidのdevice descriptionが存在する場合は、resourceTypeとresourceNameを更新する
     idIsUpdated: function () {
-      console.log("idIsUpdated");
+      console.log("method: idIsUpdated");
       const thingId = this.idSelected.slice(1); // remove "/"
       this.resourceTypeList = [""];
       this.resourceNameList = [""];
       this.deviceType = "";
       this.resourceTypeSelected = "";
       this.resourceNameSelected = "";
-      console.log("731 call updateDeviceType");
       this.deviceType = updateDeviceType(thingId);
       const deviceInfo = g_thingInfo[thingId];
       if (deviceInfo !== undefined) {
@@ -695,11 +689,13 @@ export default defineComponent({
     // 入力フィールド resourceType の値が変更された場合の処理
     //  resourceNameListをupdateする
     resourceTypeIsUpdated: function () {
-      updateResourceName(
+      const urn = updateResourceName(
         this.methodSelected,
         this.idSelected.slice(1),
         this.resourceTypeSelected
       );
+      this.resourceNameSelected = urn[0];
+      this.resourceNameList = urn[1];
     },
 
     // 入力フィールド resourceName の値が変更された場合の処理
@@ -735,12 +731,6 @@ function updateResourceName(
   idSelected: string,
   resourceTypeSelected: string
 ): [string, string[]] {
-  console.log(
-    "updateResourceName",
-    methodSelected,
-    idSelected,
-    resourceTypeSelected
-  );
   let resourceNameList: string[] = [];
   let resourceNameSelected = "";
   if (resourceTypeSelected !== "") {
@@ -756,14 +746,18 @@ function updateResourceName(
         resourceNameList = thingInfo.actionList;
       }
       resourceNameSelected = resourceNameList[1] ? resourceNameList[1] : "";
-      console.log(
-        "resourceNameSelected:",
-        resourceNameSelected,
-        "resourceNameList:",
-        resourceNameList
-      );
+      console.log({ resourceNameSelected }, { resourceNameList });
     }
   }
+  console.log(
+    "function updateResourceName(",
+    { methodSelected },
+    { idSelected },
+    { resourceTypeSelected },
+    ")",
+    { resourceNameSelected },
+    { resourceNameList }
+  );
   return [resourceNameSelected, resourceNameList];
 }
 
@@ -780,45 +774,4 @@ function timeStamp(): string {
 }
 </script>
 
-<style scoped>
-/* .form-check {
-  padding-top: 0.5rem;
-  padding-left: 2rem;
-}
-#request-response-body {
-  margin: 0;
-  padding: 0;
-}
-#request-response-wrapper {
-  height: 20em;
-  overflow-y: scroll;
-}
-#request-response-list li {
-  font-family: Consolas, "Courier New", Courier, Monaco, monospace;
-  font-size: 90%;
-  padding: 0.2em 1em;
-}
-#message-monitor-body {
-  margin: 0;
-  padding: 0;
-}
-#message-list-wrapper {
-  height: 30em;
-  overflow-y: scroll;
-}
-#message-list li {
-  font-family: Consolas, "Courier New", Courier, Monaco, monospace;
-  font-size: 90%;
-  padding: 0.2em 1em;
-  cursor: pointer;
-}
-#message-list li span {
-  display: inline-block;
-}
-#message-list li span.col1 {
-  width: 5em;
-}
-#message-list li span.col2 {
-  width: 3em;
-} */
-</style>
+<style scoped></style>
