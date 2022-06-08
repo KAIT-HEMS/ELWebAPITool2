@@ -49,7 +49,7 @@ npm run build
 npm start
 ```
 
-- Web Browser（Chrome推奨）を起動し、http://localhost:3010 をアクセスします。
+- Web Browser を起動し、http://localhost:3010 をアクセスします。
 - Home 画面が表示されます。
 - 画面右上の Setting アイコンをクリックして Setting 画面に移動します。
 - 実験サーバーにアクセスする場合は、
@@ -60,4 +60,118 @@ npm start
   - "API key for 実証システム" のテキストフィールドに API key を入力します。
   - 画面右上の Home アイコンをクリックして Home 画面に戻ります。
   - Home 画面の "Connect web socket" をクリックします。
+    - Web socket の接続が完了すると、ボタンの右側にリンクのアイコンが表示されます。
   - 以降の操作は、実験サーバーのアクセスと同じです。
+
+## 3 プログラムについて
+
+### 3.1 全体構成
+
+- プログラムはフロントエンドのみの機能として実装しています。
+- Web server として "serve" を利用しています。
+  - プログラム実行時の "npm start" は、"serve -s dist -l 3010" を実行します。
+- Framework として、TypeScript, VueCLI, VueRouter, VueX を利用しています。
+- CSS の Framework として、Bootstrap を利用しています。
+- アイコン表示に fontawesome を利用しています。
+
+### 3.2 定数
+
+定数は、config.ts に記述されています。プログラムの動作に影響がある項目は、以下のとおりです。
+
+- serverUrl1: 実験サーバーの URL
+- serverUrl2: 実証システムの URL
+- fileName4Log: Log download のファイル名
+= addDeviceList: 設定画面で実験サーバーを選択した場合の、機器追加のリスト
+
+### 3.3 Local stroage
+
+以下の項目に関して、Web browser の local storage を利用しています。
+
+- serverSelection: 設定画面の "Select a server" の値
+- apiKey1: 設定画面の "API key for 実験サーバー" の値
+- apiKey2: 設定画面の "API key for 実証システム" の値
+
+### 3.4 Global 変数
+
+Component 間での値の受け渡しは、VueX の store を利用しています。
+Global 変数の定義は、`src/store/index.ts` に記述しています。
+
+- serverSelection: 選択されたサーバーを示す文字列。"server1":実験サーバー, "server2":実証システム
+- serverUrl: 選択されたサーバーの URL
+- apiKey: 選択されたサーバーの API key
+- request: EL WebAPI Server へ送信した request
+- statusCode: EL WebAPI Server からの status code
+- response: EL WebAPI Server からの response
+- logId: LOG の id
+- logArray: 複数の LOG を Array として格納したもの
+- notificationData: EL WebAPI Server から受信した通知のデータ
+- webSocketIsConnected: EL WebAPI Server と web socket での接続状況
+
+### 3.5 TypeScript 関連
+
+- VueX で定義した store の型定義は、src/vuex.d.ts で記述しています
+- Global な type 宣言は src/global.d.ts で記述しています。
+  - Log
+  - NotificationData
+  - IdInfo
+
+### 3.6 ページの構成
+
+- 全体の構成は src/App.vue で記述しています。
+- ページの共通ヘッダーは src/components/NavHeader.vue で記述しています。
+- それ以下の部分は VueRouter を利用して Home, Setting, About 画面を表示します。
+- それぞれの画面に対応した view は、src/views にあります。
+- src/views にある vue ファイルは、src/components にある vue ファイルを利用します
+
+### 3.7 プロジェクト作成方法の reminder
+
+- Vue CLI プロジェクトを作成する際にオプションを指定することで以下のモジュールが組み込まれます。
+  - TypeScript, VueRouter, VueX
+- serve と Bootstrap は、以下のようにインストールします。
+
+  ```sh
+  npm i serve
+  npm i bootstrap
+  ```
+
+- bootstrap をプログラム内で利用するには、`/src/main.ts` に以下の行を追加します。
+
+  ```ts
+  import "bootstrap/dist/css/bootstrap.min.css";
+  ```
+
+- fontawesome は、以下のようにインストールします。
+
+  ```sh
+  npm i @fortawesome/fontawesome-svg-core
+  npm i @fortawesome/free-solid-svg-icons
+  npm i @fortawesome/free-regular-svg-icons
+  npm i @fortawesome/vue-fontawesome@prerelease
+  ```
+
+- fontawesome のアイコンを利用するには、`/src/main.ts` に以下の行を追加します。
+
+  ```ts
+  /* import the fontawesome core */
+  import { library } from "@fortawesome/fontawesome-svg-core";
+  /* import specific icons */
+  import { faHome } from "@fortawesome/free-solid-svg-icons";
+  import { faCog } from "@fortawesome/free-solid-svg-icons";
+  import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+  import { faTrash } from "@fortawesome/free-solid-svg-icons";
+  import { faLink } from "@fortawesome/free-solid-svg-icons";
+  /* add icons to the library */
+  library.add(faHome);
+  library.add(faCog);
+  library.add(faQuestionCircle);
+  library.add(faTrash);
+  library.add(faLink);
+  /* import font awesome icon component */
+  import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+  createApp(App)
+    .component("font-awesome-icon", FontAwesomeIcon)
+    .use(store)
+    .use(router)
+    .mount("#app");
+  ```

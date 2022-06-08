@@ -15,19 +15,7 @@ const apiKey1 = localStorage.getItem("apiKey1") ?? "";
 const apiKey2 = localStorage.getItem("apiKey2") ?? "";
 const apiKey = serverSelection == "server1" ? apiKey1 : apiKey2;
 console.log("store init:", { serverSelection }, { serverUrl }, { apiKey });
-// type Log = {
-//   id: string;
-//   timeStamp: string;
-//   direction: string;
-//   statusCode: string;
-//   data: string;
-//   body: string;
-// };
 const logArray: Log[] = []; // logを格納するarray
-// type NotificationData = {
-//   path: string;
-//   body: string;
-// };
 const notificationData: NotificationData = {
   path: "",
   body: "Body: ",
