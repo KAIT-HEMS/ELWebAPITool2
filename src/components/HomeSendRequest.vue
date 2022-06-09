@@ -374,7 +374,12 @@ export default defineComponent({
           const statusCode = response.status + " " + response.statusText;
           this.statusCode = "RES: " + statusCode;
           g_statusCode = statusCode;
-          return response.json();
+          if (this.methodSelected == "DELETE") {
+            this.response = "";
+            return;
+          } else {
+            return response.json();
+          }
         })
         .then((data) => {
           console.log("Success:", { data });

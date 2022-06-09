@@ -27,7 +27,15 @@
                 v-model="serverSelection"
                 v-on:change="rbServerOnChange($event)"
               />
-              <label class="form-check-label" for="server1">実験サーバー</label>
+              <label
+                class="form-check-label"
+                for="server1"
+                data-bs-toggle="tooltip"
+                data-bs-html="true"
+                title="ECHONET Lite WebAPI のリファレンスサーバー。制御対象機器はサーバー内で静的にエミュレーションします。"
+              >
+                実験サーバー</label
+              >
             </div>
             <!-- ラジオボタン: 実証システム -->
             <div class="form-check">
@@ -39,7 +47,14 @@
                 v-model="serverSelection"
                 v-on:change="rbServerOnChange($event)"
               />
-              <label class="form-check-label" for="server2">実証システム</label>
+              <label
+                c
+                lass="form-check-label"
+                for="server2"
+                data-bs-toggle="tooltip"
+                title="ECHONET Lite WebAPI を利用して LAN 内の ECHONET Lite 機器を制御します。"
+                >実証システム</label
+              >
             </div>
             <br />
           </div>

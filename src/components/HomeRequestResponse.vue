@@ -38,6 +38,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 console.log("HomeRequestResponse init");
 
 export default defineComponent({
