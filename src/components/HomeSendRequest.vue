@@ -20,6 +20,7 @@
                 class="btn btn-secondary btn-sm fw-bold mr-1"
                 title="Connect web socket"
                 v-on:click="connectButtonIsClicked"
+                v-bind:disabled="webSocketIsConnected"
               >
                 Connect web socket
               </button>
@@ -156,33 +157,23 @@
             </div>
           </div>
 
-          <div class="row">
-            <!-- Body data input -->
-            <div class="col-md-9">
-              <div class="input-group mb-2 mx-1">
-                <span class="input-group-text">Body data</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputBody"
-                  v-model="body"
-                  v-bind:style="bodyStyle"
-                />
-              </div>
-            </div>
-
-            <!-- Copy from Response button -->
-            <div class="col-auto"></div>
-            <div class="col-auto mt-1 pl-0">
-              <button
-                type="button"
-                class="btn btn-secondary btn-sm fw-bold"
-                title="Copy from Response"
-                v-on:click="copyFromResponseButtonIsClicked"
-              >
-                Copy from Response
-              </button>
-            </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text">Body data</span>
+            <input
+              type="text"
+              class="form-control"
+              id="inputBody"
+              v-model="body"
+              v-bind:style="bodyStyle"
+            />
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm fw-bold"
+              title="Copy from Response"
+              v-on:click="copyFromResponseButtonIsClicked"
+            >
+              Copy from Response
+            </button>
           </div>
         </form>
       </div>

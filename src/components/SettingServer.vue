@@ -59,15 +59,28 @@
             <br />
           </div>
           <!-- Input: API key for 実験サーバー -->
-          <div class="input-group">
-            <span class="input-group-text">API key for 実験サーバー</span>
-            <input
-              type="text"
-              class="form-control"
-              id="inputApiKey1"
-              v-model="apiKey1"
-              v-on:change="apiKeyOnChange1"
-            />
+          <div class="row">
+            <div class="col-11">
+              <div class="input-group">
+                <span class="input-group-text">API key for 実験サーバー</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputApiKey1"
+                  v-model="apiKey1"
+                  v-on:change="apiKeyOnChange1"
+                />
+              </div>
+            </div>
+            <div class="col-auto mt-2 pl-0">
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm"
+                v-on:click="verifyApiKey1ButtonIsClicked"
+              >
+                確認
+              </button>
+            </div>
           </div>
           <!-- Input: API key for 実証システム -->
           <div class="input-group">
@@ -156,6 +169,9 @@ export default defineComponent({
         this.serverSelection == "server1" ? this.apiKey1 : this.apiKey2;
       console.log("apiKeyOnChange2:", this.apiKey2);
     },
+    verifyApiKey1ButtonIsClicked: function () {
+      
+    }
   },
   created: function () {
     console.log("Setting page: Server is created");

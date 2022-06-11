@@ -1,8 +1,105 @@
-<!-- components/SettingDevice.vue -->
-<!-- Setting page の Device 設定 component を作成する -->
+<!-- components/SettingServerAndDevice.vue -->
+<!-- Setting page の Server 設定 と Device 設定 component を作成する -->
 
 <template>
-  <div class="settingDevice">
+  <div class="settingServerAndDevice">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-auto h5 mt-2">ECHONET Lite WebAPI Server の設定</div>
+          <div class="col"></div>
+          <div class="col-auto mt-2">{{ serverUrl }}</div>
+          <div class="col-auto"></div>
+        </div>
+      </div>
+      <div class="card-body pt-2 pb-2">
+        <form>
+          <div class="input-group">
+            <span class="input-group-text">Select a server</span>
+            <!-- ラジオボタン: 実験サーバー -->
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="server1"
+                value="server1"
+                v-model="serverSelection"
+                v-on:change="rbServerOnChange($event)"
+              />
+              <label
+                class="form-check-label"
+                for="server1"
+                data-bs-toggle="tooltip"
+                data-bs-html="true"
+                title="ECHONET Lite WebAPI のリファレンスサーバーです。制御対象機器はサーバー内で静的にエミュレーションします。"
+              >
+                実験サーバー</label
+              >
+            </div>
+            <!-- ラジオボタン: 実証システム -->
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="server2"
+                value="server2"
+                v-model="serverSelection"
+                v-on:change="rbServerOnChange($event)"
+              />
+              <label
+                c
+                lass="form-check-label"
+                for="server2"
+                data-bs-toggle="tooltip"
+                title="ECHONET Lite WebAPI を利用して LAN 内の ECHONET Lite 機器を制御します。"
+                >実証システム</label
+              >
+            </div>
+            <br />
+          </div>
+          <!-- Input: API key for 実験サーバー -->
+          <div class="input-group">
+            <span class="input-group-text">API key for 実験サーバー</span>
+            <input
+              type="text"
+              class="form-control"
+              id="inputApiKey1"
+              v-model="apiKey1"
+              v-on:change="apiKeyOnChange1"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-sm"
+              v-on:click="updateButtonIsClicked"
+            >
+              確認
+            </button>
+            <span class="input-group-text">{{ verifyApiKey1 }}</span>
+          </div>
+
+          <!-- Input: API key for 実証システム -->
+          <div class="input-group">
+            <span class="input-group-text">API key for 実証システム</span>
+            <input
+              type="text"
+              class="form-control"
+              id="inputApiKey2"
+              v-model="apiKey2"
+              v-on:change="apiKeyOnChange2"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-sm"
+              v-on:click="verifyApiKey2ButtonisCliked"
+            >
+              確認
+            </button>
+            <span class="input-group-text">{{ verifyApiKey2 }}</span>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- 実験サーバーの場合のみ表示 -->
     <template v-if="serverSelection === 'server1'">
       <div class="card">
@@ -92,17 +189,18 @@
 import { defineComponent } from "vue";
 import { config } from "../config";
 import { IdInfo } from "../global.d";
-
-console.log("SettingDevice init");
+console.log("SettingServerAndDevice init");
 const idInfoList: IdInfo[] = []; // プロパティの初期化用データ
 
 export default defineComponent({
-  name: "SettingDevice",
+  name: "SettingServerAndDevice",
   data() {
     return {
       apiKey1: localStorage.getItem("apiKey1") ?? "",
       apiKey2: localStorage.getItem("apiKey2") ?? "",
-      addDevice: config.addDeviceList[3], // デバイス追加で選択されたデバイス名。初期値はエアコン
+      verifyApiKey1: "NG",
+      verifyApiKey2: "NG",
+      addDevice: config.addDeviceList[10], // デバイス追加で選択されたデバイス名。初期値はエアコン
       addDeviceList: config.addDeviceList,
       idInfoList: idInfoList, // [{deviceType:"/aircon", id:"0123"},... ] GET /devices のレスポンスを利用
     };
@@ -134,10 +232,40 @@ export default defineComponent({
     },
   },
   methods: {
+    // Select a server のラジオボタンの処理
+    rbServerOnChange: function (event: Event) {
+      if (event!.target instanceof HTMLInputElement) {
+        const serverSelection = event!.target.value;
+        console.log("rbServerOnChange", serverSelection);
+        localStorage.setItem("serverSelection", serverSelection);
+        this.serverSelection = serverSelection;
+        this.serverUrl =
+          serverSelection == "server1" ? config.serverUrl1 : config.serverUrl2;
+        this.apiKey =
+          serverSelection == "server1" ? this.apiKey1 : this.apiKey2;
+      }
+    },
+
+    // API key for 実験サーバー の入力時の処理
+    apiKeyOnChange1: function () {
+      localStorage.setItem("apiKey1", this.apiKey1);
+      this.apiKey =
+        this.serverSelection == "server1" ? this.apiKey1 : this.apiKey2;
+      console.log("apiKeyOnChange1:", this.apiKey1);
+    },
+
+    // API key for 実証システム の入力時の処理
+    apiKeyOnChange2: function () {
+      localStorage.setItem("apiKey2", this.apiKey2);
+      this.apiKey =
+        this.serverSelection == "server1" ? this.apiKey1 : this.apiKey2;
+      console.log("apiKeyOnChange2:", this.apiKey2);
+    },
+
     // デバイス削除ボタン(Trash can)がクリックされたときの処理
     deleteDeviceButtonIsClicked: function (value: number) {
       const deviceId = this.idInfoList[value].id;
-      const url = this.serverUrl + "/config/device" + deviceId;
+      const url = config.serverUrl1 + "/config/device" + deviceId;
       console.log("Delete device, ", { url });
 
       const headers = new Headers({
@@ -161,7 +289,7 @@ export default defineComponent({
 
     // デバイス追加ボタンがクリックされたときの処理
     addDeviceButtonIsClicked: function () {
-      const url = this.serverUrl + "/config/device/";
+      const url = config.serverUrl1 + "/config/device/";
       console.log("Add device, ", { url }, this.addDevice);
       const bodyData = '{"deviceType":"' + this.addDevice + '"}';
 
@@ -187,12 +315,13 @@ export default defineComponent({
           console.error("Add Error:", error);
         });
     },
+
     // UPDATEボタンがクリックされたときの処理
     updateButtonIsClicked: function () {
-      const url = this.serverUrl + "/devices";
+      const url = config.serverUrl1 + "/devices";
       console.log("Update devices, ", { url });
       const headers = new Headers({
-        "X-Elapi-key": this.apiKey,
+        "X-Elapi-key": this.apiKey1,
       });
       let option = {
         method: "GET",
@@ -205,6 +334,11 @@ export default defineComponent({
         })
         .then((data) => {
           console.log("Update devices", data);
+          if (data.type == "authError") {
+            this.verifyApiKey1 = "NG";
+          } else {
+            this.verifyApiKey1 = "OK";
+          }
           // idInfoListを作成する
           const service = "devices";
           this.idInfoList = [];
@@ -232,17 +366,63 @@ export default defineComponent({
           console.error("Update Error:", error);
         });
     },
+    // apiKey2 確認ボタンがクリックされたときの処理
+    verifyApiKey2ButtonisCliked: function () {
+      const url = config.serverUrl2 + "/devices";
+      console.log("Verify apikey2, ", { url });
+      const headers = new Headers({
+        Authorization: "Bearer " + this.apiKey2,
+      });
+      let option = {
+        method: "GET",
+        headers: headers,
+      };
+
+      fetch(url, option)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Update devices", data);
+          if (data.type == "authError") {
+            this.verifyApiKey2 = "NG";
+          } else {
+            this.verifyApiKey2 = "OK";
+          }
+        })
+        .catch((error) => {
+          console.error("Update Error:", error);
+        });
+    },
   },
+
   created: function () {
-    console.log("Setting page: Device is created");
-    if (this.serverSelection == "server1") {
-      this.updateButtonIsClicked();
-    }
+    console.log("Setting page: Server and Device is created");
+    console.log(
+      "serverSelection:",
+      this.serverSelection,
+      "apiKey1:",
+      this.apiKey1,
+      "apiKey2:",
+      this.apiKey2
+    );
+    this.updateButtonIsClicked();
+    this.verifyApiKey2ButtonisCliked();
   },
 });
 </script>
 
 <style scoped>
+.input-group {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+.form-check {
+  padding-top: 0.5rem;
+  padding-left: 2rem;
+}
 #setting-devices-body {
   margin: 0;
   padding: 0;

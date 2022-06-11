@@ -18,12 +18,14 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 // add icons to the library
 library.add(faHome);
 library.add(faCog);
 library.add(faQuestionCircle);
 library.add(faTrash);
 library.add(faLink);
+library.add(faCheck);
 // import font awesome icon component
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 

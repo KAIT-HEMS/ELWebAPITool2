@@ -18,9 +18,10 @@
 <script lang="ts">
 import NavHeader from "./components/NavHeader.vue";
 import { config } from "./config";
-const version = config.version;
-const releaseData = config.releaseDate;
-console.log("App.vue: init", { version }, { releaseData });
+console.log("ECHONET Lite WebAPI Tool");
+console.log("Version:", config.version);
+console.log("Release date:", config.releaseDate);
+console.log("App.vue: init");
 
 export default {
   components: {
