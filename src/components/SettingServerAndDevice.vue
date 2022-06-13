@@ -16,7 +16,7 @@
         <form>
           <div class="input-group">
             <span class="input-group-text">Select a server</span>
-            <!-- ラジオボタン: 実験サーバー -->
+            <!-- ラジオボタン: 実験クラウド -->
             <div class="form-check">
               <input
                 class="form-check-input"
@@ -33,7 +33,7 @@
                 data-bs-html="true"
                 title="ECHONET Lite WebAPI のリファレンスサーバーです。制御対象機器はサーバー内で静的にエミュレーションします。"
               >
-                実験サーバー</label
+                実験クラウド</label
               >
             </div>
             <!-- ラジオボタン: 実証システム -->
@@ -57,9 +57,9 @@
             </div>
             <br />
           </div>
-          <!-- Input: API key for 実験サーバー -->
+          <!-- Input: API key for 実験クラウド -->
           <div class="input-group">
-            <span class="input-group-text">API key for 実験サーバー</span>
+            <span class="input-group-text">API key for 実験クラウド</span>
             <input
               type="text"
               class="form-control"
@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <!-- 実験サーバーの場合のみ表示 -->
+    <!-- 実験クラウドの場合のみ表示 -->
     <template v-if="serverSelection === 'server1'">
       <div class="card">
         <div class="card-header">
@@ -246,7 +246,7 @@ export default defineComponent({
       }
     },
 
-    // API key for 実験サーバー の入力時の処理
+    // API key for 実験クラウド の入力時の処理
     apiKeyOnChange1: function () {
       localStorage.setItem("apiKey1", this.apiKey1);
       this.apiKey =
@@ -384,7 +384,7 @@ export default defineComponent({
         })
         .then((data) => {
           console.log("Update devices", data);
-          if (data.type == "authError") {
+          if (data.type == "referenceError") {
             this.verifyApiKey2 = "NG";
           } else {
             this.verifyApiKey2 = "OK";

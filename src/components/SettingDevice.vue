@@ -3,7 +3,7 @@
 
 <template>
   <div class="settingDevice">
-    <!-- 実験サーバーの場合のみ表示 -->
+    <!-- 実験クラウドの場合のみ表示 -->
     <template v-if="serverSelection === 'server1'">
       <div class="card">
         <div class="card-header">

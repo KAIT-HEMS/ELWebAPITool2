@@ -17,7 +17,7 @@
         <form>
           <div class="input-group">
             <span class="input-group-text">Select a server</span>
-            <!-- ラジオボタン: 実験サーバー -->
+            <!-- ラジオボタン: 実験クラウド -->
             <div class="form-check">
               <input
                 class="form-check-input"
@@ -34,7 +34,7 @@
                 data-bs-html="true"
                 title="ECHONET Lite WebAPI のリファレンスサーバー。制御対象機器はサーバー内で静的にエミュレーションします。"
               >
-                実験サーバー</label
+                実験クラウド</label
               >
             </div>
             <!-- ラジオボタン: 実証システム -->
@@ -58,11 +58,11 @@
             </div>
             <br />
           </div>
-          <!-- Input: API key for 実験サーバー -->
+          <!-- Input: API key for 実験クラウド -->
           <div class="row">
             <div class="col-11">
               <div class="input-group">
-                <span class="input-group-text">API key for 実験サーバー</span>
+                <span class="input-group-text">API key for 実験クラウド</span>
                 <input
                   type="text"
                   class="form-control"
@@ -154,7 +154,7 @@ export default defineComponent({
       }
     },
 
-    // API key for 実験サーバー の入力時の処理
+    // API key for 実験クラウド の入力時の処理
     apiKeyOnChange1: function () {
       localStorage.setItem("apiKey1", this.apiKey1);
       this.apiKey =
