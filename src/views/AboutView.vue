@@ -13,7 +13,7 @@
       <div class="card-body" id="about-this-tool">
         <div>
           <p>
-            ELWebAPITool は、エコーネットコンソーシアムが策定した
+            ELWebAPITool はエコーネットコンソーシアムが策定した
             <a
               href="https://echonet.jp/web_api/#guideline"
               target="_blank"
@@ -44,7 +44,7 @@
         <div>
           <p>
             ECHONET Lite WebAPI
-            実験クラウド（以下、実験クラウドと省略します）は、 ECHONET Lite
+            実験クラウド（以下、実験クラウドと省略します）は ECHONET Lite
             WebAPI のリファレンスサーバーです。 ECHONET Lite WebAPI
             で定義された全ての API を実装しています。
             制御対象機器はサーバー内で静的にエミュレーションしています。
@@ -52,7 +52,7 @@
             は実験クラウドのデバイスエミュレーション設定機能も備えています。
           </p>
           <p>
-            実験クラウドは、エコーネットコンソーシアムの会員企業の方が利用できます。
+            実験クラウドはエコーネットコンソーシアムの会員企業の方が利用できます。
             エコーネットコンソーシアムの
             <a
               href="https://echonet.jp/m_only/web_api_cloud/"
@@ -78,7 +78,7 @@
         <div>
           <p>
             ECHONET Lite WebAPI
-            実証システム（以下、実証システムと省略します）は、 ECHONET Lite
+            実証システム（以下、実証システムと省略します）は ECHONET Lite
             WebAPI を利用して ECHONET Lite 機器を制御するシステムです。ECHONET
             Lite の実機が接続された LAN 内に実証システム対応の Gateway
             装置を設置することで、ECHONET Lite WebAPI を利用して
