@@ -200,7 +200,7 @@ export default defineComponent({
       apiKey2: localStorage.getItem("apiKey2") ?? "",
       verifyApiKey1: "NG",
       verifyApiKey2: "NG",
-      addDevice: config.addDeviceList[10], // デバイス追加で選択されたデバイス名。初期値はエアコン
+      addDevice: config.addDeviceList[25], // デバイス追加で選択されたデバイス名。初期値はエアコン
       addDeviceList: config.addDeviceList,
       idInfoList: idInfoList, // [{deviceType:"/aircon", id:"0123"},... ] GET /devices のレスポンスを利用
     };
@@ -234,8 +234,8 @@ export default defineComponent({
   methods: {
     // Select a server のラジオボタンの処理
     rbServerOnChange: function (event: Event) {
-      if (event!.target instanceof HTMLInputElement) {
-        const serverSelection = event!.target.value;
+      if (event.target instanceof HTMLInputElement) {
+        const serverSelection = event.target.value;
         console.log("rbServerOnChange", serverSelection);
         localStorage.setItem("serverSelection", serverSelection);
         this.serverSelection = serverSelection;

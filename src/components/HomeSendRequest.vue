@@ -183,11 +183,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { config } from "../config";
 import { Log, NotificationData, IdInfo } from "../global.d";
 
 console.log("HomeSendRequest init");
-const fileName4Log = config.fileName4Log; // log download のファイル名
 let g_statusCode = ""; // fetch API の statusCode を保持するため
 const idInfoList: IdInfo[] = []; // プロパティの初期化用データ
 const resourceTypeList: string[] = []; // プロパティの初期化用データ
@@ -696,7 +694,7 @@ export default defineComponent({
 
     // 入力フィールド resourceName の値が変更された場合の処理
     resourceNameIsUpdated: function () {
-      const resourceNameSelected = this.resourceNameSelected;
+      console.log("resourceNameIsUpdated");
     },
   },
   created: function () {
