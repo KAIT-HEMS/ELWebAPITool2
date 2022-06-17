@@ -48,6 +48,7 @@ export const config = {
     "generalLighting",
     "monoFunctionalLighting",
     "evCharger",
+    "lightingSystem",
     "enhancedLightingSystem",
     "hybridWaterHeater",
     "refrigerator",

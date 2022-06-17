@@ -26,8 +26,10 @@
           <ul class="list-group" id="request-response-list">
             <li class="list-group-item">{{ request }}</li>
             <li class="list-group-item">{{ statusCode }}</li>
-            <li class="list-group-item">
-              <pre>{{ response }}</pre>
+            <li class="list-group-item d-flex align-items-start">
+              <span>
+                <pre>{{ response }}</pre>
+              </span>
             </li>
           </ul>
         </div>

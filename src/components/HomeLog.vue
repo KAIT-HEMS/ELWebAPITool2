@@ -190,19 +190,6 @@ export default defineComponent({
   padding-top: 0.5rem;
   padding-left: 2rem;
 }
-#request-response-body {
-  margin: 0;
-  padding: 0;
-}
-#request-response-wrapper {
-  height: 20em;
-  overflow-y: scroll;
-}
-#request-response-list li {
-  font-family: Consolas, "Courier New", Courier, Monaco, monospace;
-  font-size: 90%;
-  padding: 0.2em 1em;
-}
 #message-monitor-body {
   margin: 0;
   padding: 0;

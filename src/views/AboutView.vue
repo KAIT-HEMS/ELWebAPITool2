@@ -43,9 +43,8 @@
       <div class="card-body" id="about-jikkenn-server">
         <div>
           <p>
-            ECHONET Lite WebAPI
-            実験クラウド（以下、実験クラウドと省略します）は ECHONET Lite
-            WebAPI のリファレンスサーバーです。 ECHONET Lite WebAPI
+            ECHONET Lite WebAPI 実験クラウド（以下、実験クラウドと省略します）は
+            ECHONET Lite WebAPI のリファレンスサーバーです。 ECHONET Lite WebAPI
             で定義された全ての API を実装しています。
             制御対象機器はサーバー内で静的にエミュレーションしています。
             ELWebAPITool
@@ -77,13 +76,13 @@
       <div class="card-body" id="about-jisshou-system">
         <div>
           <p>
-            ECHONET Lite WebAPI
-            実証システム（以下、実証システムと省略します）は ECHONET Lite
-            WebAPI を利用して ECHONET Lite 機器を制御するシステムです。ECHONET
-            Lite の実機が接続された LAN 内に実証システム対応の Gateway
-            装置を設置することで、ECHONET Lite WebAPI を利用して
-            インターネット経由でECHONET Lite の実機を制御することができます。
-            拡張機能 bulks, groups, histories は対応していません。
+            ECHONET Lite WebAPI 実証システム（以下、実証システムと省略します）は
+            ECHONET Lite WebAPI を利用して ECHONET Lite
+            機器を制御するシステムです。ECHONET Lite の実機が接続された LAN
+            内に実証システム対応の Gateway 装置を設置することで、ECHONET Lite
+            WebAPI を利用して インターネット経由でECHONET Lite
+            の実機を制御することができます。 拡張機能 bulks, groups, histories
+            は対応していません。
           </p>
 
           <p>
