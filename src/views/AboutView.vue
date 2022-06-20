@@ -59,7 +59,7 @@
             のプロパティにおいて、動作確認のためにプロパティ値を変更したい場合は、実験クラウド専用のキーワード
             "forced":true を body data に追加して PUT してください。
           </p>
-          <p>例）{"tankWaterTemperature":50, "forced":true}</p>
+          <p>例）{"roomTemperature":22, "forced":true}</p>
           <p>
             実験クラウドはエコーネットコンソーシアムの会員企業の方が利用できます。
             エコーネットコンソーシアムの

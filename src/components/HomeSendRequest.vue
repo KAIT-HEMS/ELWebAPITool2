@@ -610,14 +610,15 @@ export default defineComponent({
         if (g_thingInfo[thingId] !== undefined) {
           switch (this.methodSelected) {
             case "GET":
+            case "PUT":
               this.body = "";
               resourceNameList = g_thingInfo[thingId].propertyList;
               this.resourceTypeSelected = "/properties";
               break;
-            case "PUT":
-              resourceNameList = g_thingInfo[thingId].propertyListWritable;
-              this.resourceTypeSelected = "/properties";
-              break;
+            // case "PUT":
+            //   resourceNameList = g_thingInfo[thingId].propertyListWritable;
+            //   this.resourceTypeSelected = "/properties";
+            //   break;
             case "POST":
               resourceNameList = g_thingInfo[thingId].actionList;
               this.resourceTypeSelected = "/actions";
