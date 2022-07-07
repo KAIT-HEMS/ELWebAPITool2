@@ -10,7 +10,7 @@
           <div class="col"></div>
         </div>
       </div>
-      <div class="card-body" id="about-this-tool">
+      <div class="card-body pb-0" id="about-this-tool">
         <div>
           <p>
             ELWebAPITool はエコーネットコンソーシアムが策定した
@@ -40,9 +40,10 @@
           <div class="col"></div>
         </div>
       </div>
-      <div class="card-body" id="about-jikkenn-server">
+      <div class="card-body pb-0" id="about-jikkenn-server">
         <div>
           <p>
+            概要：<br />
             ECHONET Lite WebAPI 実験クラウド（以下、実験クラウドと省略します）は
             ECHONET Lite WebAPI のリファレンスサーバーです。 ECHONET Lite WebAPI
             で定義された全ての API を実装しています。
@@ -51,16 +52,7 @@
             は実験クラウドがエミュレーションするデバイスの追加／削除機能も備えています。
           </p>
           <p>
-            実験クラウドでは、プロパティ値はサーバー上で静的に設定されています。
-            Device Description の "writable" が true のプロパティでは、PUT
-            でプロパティ値を設定することが可能です。"writable" が false
-            のプロパティの場合、PUT でプロパティ値を設定しようとすると、403
-            Forbidden がレスポンスされます。 "writable" が false
-            のプロパティにおいて、動作確認のためにプロパティ値を変更したい場合は、実験クラウド専用のキーワード
-            "forced":true を body data に追加して PUT してください。
-          </p>
-          <p>例）{"roomTemperature":22, "forced":true}</p>
-          <p>
+            利用方法：<br />
             実験クラウドはエコーネットコンソーシアムの会員企業の方が利用できます。
             エコーネットコンソーシアムの
             <a
@@ -73,6 +65,23 @@
             から実験クラウドのアカウントを作成し、あらかじめ API
             キーを取得してください。
           </p>
+          <p>
+            Read only のプロパティの値を変更する方法：<br />
+            実験クラウドでは、プロパティ値はサーバー上で静的に設定されています。
+            Device Description の "writable" が true のプロパティでは、PUT
+            でプロパティ値を設定することが可能です。"writable" が false
+            のプロパティの場合、PUT でプロパティ値を設定しようとすると、403
+            Forbidden がレスポンスされます。 "writable" が false
+            のプロパティにおいて、動作確認のためにプロパティ値を変更したい場合は、実験クラウド専用のキーワード
+            "forced":true を body data に追加して PUT してください。<br />
+            例）{"roomTemperature":22, "forced":true}<br />
+          </p>
+          <p>
+            注意事項：<br />
+            ECHONET Lite WebAPI
+            機器仕様部のバージョンアップに対応する実験クラウドのバージョンアップが実施された場合、
+            バージョンアップに該当する機器を一度削除し、追加しなおしてください。
+          </p>
         </div>
       </div>
     </div>
@@ -83,9 +92,10 @@
           <div class="col"></div>
         </div>
       </div>
-      <div class="card-body" id="about-jisshou-system">
+      <div class="card-body pb-0" id="about-jisshou-system">
         <div>
           <p>
+            概要：<br />
             ECHONET Lite WebAPI 実証システム（以下、実証システムと省略します）は
             ECHONET Lite WebAPI を利用して ECHONET Lite
             機器を制御するシステムです。ECHONET Lite の実機が接続された LAN
@@ -96,6 +106,7 @@
           </p>
 
           <p>
+            利用方法：<br />
             実証システムに関しては
             <a
               href="http://sh-center.org/contactus.html"

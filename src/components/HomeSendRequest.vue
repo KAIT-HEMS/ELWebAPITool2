@@ -174,6 +174,14 @@
             >
               Copy from Response
             </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm fw-bold ms-1"
+              title="Clear"
+              v-on:click="clearBodyButtonIsClicked"
+            >
+              Clear
+            </button>
           </div>
         </form>
       </div>
@@ -599,6 +607,11 @@ export default defineComponent({
       this.body = JSON.stringify(this.response);
     },
 
+    // Clear Body ボタンがクリックされたときの処理
+    clearBodyButtonIsClicked: function () {
+      this.body = "";
+    },
+
     // 入力フィールド Method の値が変更された場合の処理
     // resourceTypeListとresourceNameListをupdate
     methodIsUpdated: function () {
@@ -611,7 +624,7 @@ export default defineComponent({
           switch (this.methodSelected) {
             case "GET":
             case "PUT":
-              this.body = "";
+              // this.body = "";
               resourceNameList = g_thingInfo[thingId].propertyList;
               this.resourceTypeSelected = "/properties";
               break;
