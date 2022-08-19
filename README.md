@@ -14,28 +14,33 @@ ECHONET Lite WebAPI 実証システム（以下、実証システムと省略し
 
 実証システムは、神奈川工科大学スマートハウス研究センターとの共同研究で利用することができます。実証システムに関しては[神奈川工科大学スマートハウス研究センター](http://sh-center.org/contactus.html)に問い合わせください。
 
+ELWebAPITool をコンソーシアムから配布するバージョンは、実証システムに関する部分を非表示にします。
+src/config.ts ファイルをエディタで開き、forConsortium の値を true に修正してからビルドを実行してください。
+
 ## 2. Installation & Setup
 
-ELWebAPITool は、Node.js というプログラムと、Web ブラウザーを利用して動作します。
+ELWebAPITool は、Web ブラウザーを利用して動作する Web Application です。HTML, JavaScript, CSS という３種類のコードで構成されます。これらのファイルを Web ブラウザーに読み込ませるために、Web ブラウザーが動作している PC 上で Web server を実行します。Web server を実行する方法はいくつかありますが、ここでは Node.js という JavaScript 実行エンジンと、JavaScript で記述されたWeb server プログラムである serve を利用します。
+
+ELWebAPITool は Vue CLI という環境を利用して開発しています。ソースコードから HTML, JavaScript, CSS のファイルを作成することを、ビルドと呼びます。
 
 ### 2.1 Node.js のインストール
 
 - [Node.js のホームページ](https://nodejs.org/ja) にアクセスし、推奨版をダウンロードします。
-- ダウンロードしたインストーラを使って Node.js をインストールします。Node.js のインストール中に、npm と呼ぶツールも自動でイントールされます。
+- ダウンロードしたインストーラを使って Node.js をインストールします。Node.js のインストール中に、npm というツールも自動でイントールされます。
 
-### 2.2 ELWebAPITool のインストール
+### 2.2 ELWebAPITool のビルド作業
 
-- ELWebAPITool の zip file をエコーネットコンソーシアムのホームページからダウンロードします。
+- ELWebAPITool の zip file をダウンロードします。
 - zip file を適当なフォルダに移動して、解凍します。
 - コマンドプロンプト(PC) またはターミナル(Mac) を起動します。
 - このコマンドプロンプトまたはターミナルで CD コマンドを使い、zip fileを解凍したフォルダに移動します。
-- 次のコマンドを実行して、必要なモジュールをインストールします。
+- 次のコマンドを実行して、必要なモジュールをインストールします。Web server プログラムの serve もインストールされます。
 
 ```shell
 npm ci
 ```
 
-- 次のコマンドを実行して、プログラムをビルドします。しばらくすると、"Build complete. The dist directory is ready to be deployed." というメッセージが表示されます。これで準備は終了です。
+- 次のコマンドを実行して、プログラムをビルドします。しばらくすると、"Build complete. The dist directory is ready to be deployed." というメッセージが表示されます。これで準備は終了です。config.ts などのソースコードを修正した場合は、ビルドを実行します。
 
 ```shell
 npm run build
@@ -81,7 +86,8 @@ npm start
 - serverUrl1: 実験サーバーの URL
 - serverUrl2: 実証システムの URL
 - fileName4Log: Log download のファイル名
-= addDeviceList: 設定画面で実験サーバーを選択した場合の、機器追加のリスト
+- forConsortium: コンソ限定バージョン（実証システム関連を非表示）の場合は true とする
+- addDeviceList: 設定画面で実験サーバーを選択した場合の、機器追加のリスト
 
 ### 3.3 Local stroage
 

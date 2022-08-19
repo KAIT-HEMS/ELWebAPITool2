@@ -104,6 +104,8 @@ import { defineComponent } from "vue";
 import { config } from "../config";
 
 console.log("SettingServer init");
+const forConsortium = config.forConsortium;
+console.log({ forConsortium });
 
 export default defineComponent({
   name: "SettingServer",
@@ -111,6 +113,7 @@ export default defineComponent({
     return {
       apiKey1: localStorage.getItem("apiKey1") ?? "",
       apiKey2: localStorage.getItem("apiKey2") ?? "",
+      forConsortium: forConsortium,
     };
   },
   computed: {
@@ -169,9 +172,7 @@ export default defineComponent({
         this.serverSelection == "server1" ? this.apiKey1 : this.apiKey2;
       console.log("apiKeyOnChange2:", this.apiKey2);
     },
-    verifyApiKey1ButtonIsClicked: function () {
-      
-    }
+    verifyApiKey1ButtonIsClicked: function () {},
   },
   created: function () {
     console.log("Setting page: Server is created");

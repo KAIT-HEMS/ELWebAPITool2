@@ -14,49 +14,52 @@
       </div>
       <div class="card-body pt-2 pb-2">
         <form>
-          <div class="input-group">
-            <span class="input-group-text">Select a server</span>
-            <!-- ラジオボタン: 実験クラウド -->
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="server1"
-                value="server1"
-                v-model="serverSelection"
-                v-on:change="rbServerOnChange($event)"
-              />
-              <label
-                class="form-check-label"
-                for="server1"
-                data-bs-toggle="tooltip"
-                data-bs-html="true"
-                title="ECHONET Lite WebAPI のリファレンスサーバーです。制御対象機器はサーバー内で静的にエミュレーションします。"
-              >
-                実験クラウド</label
-              >
+          <template v-if="!forConsortium">
+            <div class="input-group">
+              <span class="input-group-text">Select a server</span>
+              <!-- ラジオボタン: 実験クラウド -->
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="server1"
+                  value="server1"
+                  v-model="serverSelection"
+                  v-on:change="rbServerOnChange($event)"
+                />
+                <label
+                  class="form-check-label"
+                  for="server1"
+                  data-bs-toggle="tooltip"
+                  data-bs-html="true"
+                  title="ECHONET Lite WebAPI のリファレンスサーバーです。制御対象機器はサーバー内で静的にエミュレーションします。"
+                >
+                  実験クラウド</label
+                >
+              </div>
+              <!-- ラジオボタン: 実証システム -->
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="server2"
+                  value="server2"
+                  v-model="serverSelection"
+                  v-on:change="rbServerOnChange($event)"
+                />
+                <label
+                  c
+                  lass="form-check-label"
+                  for="server2"
+                  data-bs-toggle="tooltip"
+                  title="ECHONET Lite WebAPI を利用して LAN 内の ECHONET Lite 機器を制御します。"
+                  >実証システム</label
+                >
+              </div>
+              <br />
             </div>
-            <!-- ラジオボタン: 実証システム -->
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                id="server2"
-                value="server2"
-                v-model="serverSelection"
-                v-on:change="rbServerOnChange($event)"
-              />
-              <label
-                c
-                lass="form-check-label"
-                for="server2"
-                data-bs-toggle="tooltip"
-                title="ECHONET Lite WebAPI を利用して LAN 内の ECHONET Lite 機器を制御します。"
-                >実証システム</label
-              >
-            </div>
-            <br />
-          </div>
+          </template>
+
           <!-- Input: API key for 実験クラウド -->
           <div class="input-group">
             <span class="input-group-text">API key for 実験クラウド</span>
@@ -78,24 +81,26 @@
           </div>
 
           <!-- Input: API key for 実証システム -->
-          <div class="input-group">
-            <span class="input-group-text">API key for 実証システム</span>
-            <input
-              type="text"
-              class="form-control"
-              id="inputApiKey2"
-              v-model="apiKey2"
-              v-on:change="apiKeyOnChange2"
-            />
-            <button
-              type="button"
-              class="btn btn-outline-secondary btn-sm"
-              v-on:click="verifyApiKey2ButtonisCliked"
-            >
-              確認
-            </button>
-            <span class="input-group-text">{{ verifyApiKey2 }}</span>
-          </div>
+          <template v-if="!forConsortium">
+            <div class="input-group">
+              <span class="input-group-text">API key for 実証システム</span>
+              <input
+                type="text"
+                class="form-control"
+                id="inputApiKey2"
+                v-model="apiKey2"
+                v-on:change="apiKeyOnChange2"
+              />
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                v-on:click="verifyApiKey2ButtonisCliked"
+              >
+                確認
+              </button>
+              <span class="input-group-text">{{ verifyApiKey2 }}</span>
+            </div>
+          </template>
         </form>
       </div>
     </div>
@@ -190,12 +195,15 @@ import { defineComponent } from "vue";
 import { config } from "../config";
 import { IdInfo } from "../global.d";
 console.log("SettingServerAndDevice init");
+const forConsortium = config.forConsortium;
 const idInfoList: IdInfo[] = []; // プロパティの初期化用データ
 
 export default defineComponent({
   name: "SettingServerAndDevice",
   data() {
     return {
+      forConsortium: forConsortium,
+
       apiKey1: localStorage.getItem("apiKey1") ?? "",
       apiKey2: localStorage.getItem("apiKey2") ?? "",
       verifyApiKey1: "NG",

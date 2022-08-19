@@ -85,40 +85,60 @@
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header">
-        <div class="row">
-          <div class="col-auto h5 mt-2">実証システムについて</div>
-          <div class="col"></div>
+    <template v-if="!forConsortium">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-auto h5 mt-2">実証システムについて</div>
+            <div class="col"></div>
+          </div>
         </div>
-      </div>
-      <div class="card-body pb-0" id="about-jisshou-system">
-        <div>
-          <p>
-            概要：<br />
-            ECHONET Lite WebAPI 実証システム（以下、実証システムと省略します）は
-            ECHONET Lite WebAPI を利用して ECHONET Lite
-            機器を制御するシステムです。ECHONET Lite の実機が接続された LAN
-            内に実証システム対応の Gateway 装置を設置することで、ECHONET Lite
-            WebAPI を利用して インターネット経由でECHONET Lite
-            の実機を制御することができます。なお、現時点で拡張機能 bulks,
-            groups, histories は対応していません。
-          </p>
+        <div class="card-body pb-0" id="about-jisshou-system">
+          <div>
+            <p>
+              概要：<br />
+              ECHONET Lite WebAPI
+              実証システム（以下、実証システムと省略します）は ECHONET Lite
+              WebAPI を利用して ECHONET Lite 機器を制御するシステムです。ECHONET
+              Lite の実機が接続された LAN 内に実証システム対応の Gateway
+              装置を設置することで、ECHONET Lite WebAPI を利用して
+              インターネット経由でECHONET Lite
+              の実機を制御することができます。なお、現時点で拡張機能 bulks,
+              groups, histories は対応していません。
+            </p>
 
-          <p>
-            利用方法：<br />
-            実証システムに関しては
-            <a
-              href="http://sh-center.org/contactus.html"
-              target="_blank"
-              rel="noreferrer"
-            >
-              神奈川工科大学スマートハウス研究センター
-            </a>
-            に問い合わせください。
-          </p>
+            <p>
+              利用方法：<br />
+              実証システムに関しては
+              <a
+                href="http://sh-center.org/contactus.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                神奈川工科大学スマートハウス研究センター
+              </a>
+              に問い合わせください。
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { config } from "../config";
+
+console.log("AboutView init");
+const forConsortium = config.forConsortium;
+
+export default defineComponent({
+  name: "AboutView",
+  data() {
+    return {
+      forConsortium: forConsortium,
+    };
+  },
+});
+</script>
