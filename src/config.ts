@@ -2,13 +2,13 @@
 // 定数の定義
 
 export const config = {
-  version: "V2.0.0",
-  releaseDate: "2022.06.23",
-  copyright: "Copyright 2021-2022 Kanagawa Institute of Technology",
+  version: "V2.1.0",
+  releaseDate: "2023.06.01",
+  copyright: "Copyright 2021-2023 Kanagawa Institute of Technology",
   serverUrl1: "https://webapiechonet.com/elapi/v1",
   serverUrl2: "https://www.smarthouse-center.org/elapi/v1",
   // コンソ限定バージョン（実証システム関連を非表示）の場合は true とする
-  forConsortium: false,
+  forConsortium: true,
   // ログをダウンロードする場合のファイル名
   fileName4Log: "log_elapi.txt",
   // デバイス追加に表示するデバイス名のリスト
@@ -26,6 +26,7 @@ export const config = {
     "controller",
     "cookingHeater",
     "currentSensor",
+    "drElectricEnergyMeter",
     "electricEnergySensor",
     "electricLock",
     "electricRainDoor",

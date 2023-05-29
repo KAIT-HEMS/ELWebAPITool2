@@ -1,0 +1,38 @@
+ELWebAPITool Release Note
+
+Release note
+V 1.0.0 初版正式リリース
+V1.1.1
+機器仕様部 V1.3.0 で新規追加された以下の機器を、設定画面のデバイス追加リストに追加した。
+- 温度センサ（temperatureSensor）
+- 電力量センサ（electricEnergySensor）
+- 電流センサ（currentSensor）
+- 空調換気扇（airConditionerVentilationFan）
+- 冷温水熱源機（coldOrHotWaterHeatSourceEquipment）
+- 電力量メータ（wattHourMeter）
+- 分電盤メータリング（powerDistributionBoardMetering）
+- テレビ（tv）
+
+NOTE: 実験クラウドは機器仕様部 V1.3.0対応を行なった。機器仕様部 V1.3.0 でプロパティが追加・変更された機器を利用している場合、該当デバイスを一度削除して追加しなおす必要がある。
+
+V2.0.0
+- プログラム全体をリファクタリングした。
+- Proxy に対応した。
+- 機器仕様部 V1.4.0 で新規追加された以下の機器を、設定画面のデバイス追加リストに追加した。
+  - 非常ボタン (emergencyButton)
+  - 人体検知センサ (humanDetectionSensor)
+  - 湿度センサ (humiditySensor)
+  - 風呂沸き上がりセンサ (bathHeatingStatusSensor)
+  - CO2センサ (co2Sensor)
+  - VOCセンサ (vocSensor)
+  - 照度センサ (illuminanceSensor)
+  - 水流量メータ (waterFlowMeter)
+  - ガスメータ (gasMeter)
+  - スマート電力量サブメータ (smartElectricEnergySubMeter)
+  - 照明システム (lightingSystem)
+- ECHONET Lite WebAPI 実証システムに対応した。
+
+V2.1.0
+- 機器仕様部 V1.5.0 で新規追加された以下の機器を、設定画面のデバイス追加リストに追加した。
+  - 分散型電源電力量メータ (drElectricEnergyMeter)
+- サービス resHistories をサポートした。

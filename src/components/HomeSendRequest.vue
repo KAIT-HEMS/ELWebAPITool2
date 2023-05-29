@@ -411,7 +411,7 @@ export default defineComponent({
               this.serviceSelected = serviceList[1] ? serviceList[1] : "";
             }
 
-            // GET /elapi/v1/devices, groups, bulks, histories の場合
+            // GET /elapi/v1/devices, groups, bulks, histories, resHistories の場合
             // idInfoListを新規に作成する
             let service = "";
             regex = /\/devices$/; // 正規表現：行末が'/devices'
@@ -429,6 +429,10 @@ export default defineComponent({
             regex = /\/histories$/; // 正規表現：行末が'/histories'
             if (regex.test(url)) {
               service = "histories";
+            }
+            regex = /\/resHistories$/; // 正規表現：行末が'/resHistories'
+            if (regex.test(url)) {
+              service = "resHistories";
             }
 
             if (service !== "") {
@@ -465,7 +469,7 @@ export default defineComponent({
               console.log("call updateDeviceType()", this.idSelected.slice(1));
             }
 
-            // GET /elapi/v1/devices, groups, bulks, histories/<id> の場合
+            // GET /elapi/v1/devices, groups, bulks, histories, resHistories/<id> の場合
             // responseはthing (device/group/bulk/history) description -> g_thingInfoに情報を追加
             // this.resourceTypeListにresource typeをpushする
             // this.resourceNameListにresource nameをpushする
@@ -485,6 +489,10 @@ export default defineComponent({
             regex = /\/histories\/([0-9]|[a-z]|[A-Z]|-)+$/; // 正規表現'/histories/'の後、行末まで英数字
             if (regex.test(url)) {
               service = "histories";
+            }
+            regex = /\/resHistories\/([0-9]|[a-z]|[A-Z]|-)+$/; // 正規表現'/resHistories/'の後、行末まで英数字
+            if (regex.test(url)) {
+              service = "resHistories";
             }
             console.log("GET /elapi/v1/<service>/<id>", { service });
 
